@@ -5,22 +5,32 @@
  * Не забываем чистить таймер
  */
 
-const refs = {
-  notification: document.querySelector('.js-notification'),
-};
+// const refs = {
+//   notification: document.querySelector('.js-notification'),
+//   startBtn: document.querySelector('button[data-action-start]'),
+//   stopBtn: document.querySelector('button[data-action-stop]'),
+// };
 
-refs.notification.addEventListener('click', notificationClickHandler);
+// let timeoutId = null;
 
-showNotification();
+// refs.notification.addEventListener('click', notificationClickHandler);
 
-function notificationClickHandler() {
-  console.log('👽');
-}
+// showNotification();
 
-function showNotification() {
-  refs.notification.classList.add('is-visible');
-}
+// function notificationClickHandler() {
+//   clearTimeout(timeoutId);
+//   hideNotification();
+// }
 
-function hideNotification() {
-  refs.notification.classList.remove('is-visible');
-}
+// function showNotification() {
+//   refs.notification.classList.add('is-visible');
+
+//   timeoutId = setTimeout(() => {
+//     console.log('I`m calling hideNotification in callback from setTimeout');
+//     hideNotification();
+//   }, 3000);
+// }
+
+// function hideNotification() {
+//   refs.notification.classList.remove('is-visible');
+// }
