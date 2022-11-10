@@ -7,5 +7,5 @@ import './sass/styles.scss';
 import './js/06-homework';
 // import './js/07-another';
 // import './js/promiseIntro';
-import './js/08-promise';
-import './js/horeses';
+// import './js/08-promise';
+// import './js/horeses';

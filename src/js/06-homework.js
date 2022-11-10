@@ -151,3 +151,223 @@ updateClockFace();
 // function pad(value) {
 //   return String(value).padStart(2, '0');
 // }
+
+/**
+ * Промисификация дз
+ */
+
+// Task - 2
+
+// const delay = ms => {
+//   return new Promise(resolve => {
+//     setTimeout(() => {
+//       /**
+//        * Прокидвываем значение мс дальше
+//        */
+//       resolve(ms);
+//     }, ms);
+//   });
+// };
+
+// const logger = time => console.log(`Resolved after ${time}ms`);
+
+// // Вызовы функции для проверки
+// delay(2000).then(logger); // Resolved after 2000ms
+// delay(1000).then(logger); // Resolved after 1000ms
+// delay(1500).then(logger); // Resolved after 1500ms
+
+// Task - 1
+
+// const users = [
+//   { name: 'Mango', active: true },
+//   { name: 'Poly', active: false },
+//   { name: 'Ajax', active: true },
+//   { name: 'Lux', active: false },
+// ];
+
+// console.table(users);
+
+// const toggleUserState = (allUsers, userName, callback) => {
+//   const updatedUsers = allUsers.map(user =>
+//     user.name === userName ? { ...user, active: !user.active } : user
+//   );
+
+//   callback(updatedUsers);
+// };
+
+// const toggleUserState = (allUsers, userName) => {
+//   return new Promise(resolve => {
+//     setTimeout(() => {
+//       const updatedUsers = allUsers.map(user =>
+//         user.name === userName ? { ...user, active: !user.active } : user
+//       );
+
+//       resolve(updatedUsers);
+//     }, 1000);
+//   });
+// };
+
+// const logger = updatedUsers => console.table(updatedUsers);
+
+/*
+ * Сейчас работает так
+ */
+
+// toggleUserState(users, 'Mango', logger);
+// toggleUserState(users, 'Ajax', logger);
+
+/*
+ * Должно работать так
+ */
+// toggleUserState(users, 'Poly').then(logger);
+// toggleUserState(users, 'Poly').then(logger);
+
+// Task - 3
+
+// -- Example --
+
+// const product1 = {
+//   id: 1,
+//   price: 100,
+//   count: 2,
+// };
+// const product2 = {
+//   id: 2,
+//   price: 200,
+//   count: 5,
+// };
+// const product3 = {
+//   id: 3,
+//   price: 300,
+//   count: 7,
+// };
+// const product4 = {
+//   id: 4,
+//   price: 400,
+//   count: 10,
+// };
+
+// const errLog = function ({ id, count }) {
+//   console.log(`В данном объекте ${id} осталось ${count} единиц`);
+// };
+// const esLog = function ({ sum, delay }) {
+//   console.log(`Ваш заказ на ${sum} будет выполнен через ${delay} милисекунд`);
+// };
+
+// const toGetSumm = function (obj) {
+//   let num = Math.floor(Math.random() * (20 - 1) + 1);
+//   let ms = Math.floor(Math.random() * (3000 - 1000 + 1) + 1000);
+//   console.log('ms', ms);
+//   console.log('num', num);
+//   return new Promise((res, rej) => {
+//     setTimeout(() => {
+//       if (obj.count >= num) {
+//         obj.price * num;
+//         res({ sum: obj.price * num, delay: ms });
+//       } else {
+//         rej(obj);
+//       }
+//     }, ms);
+//   });
+// };
+
+// toGetSumm(product4, 1000).then(esLog).catch(errLog);
+// toGetSumm(product3, 3000).then(esLog).catch(errLog);
+// console.log(toGetSumm(product3, 1000));
+
+const logSuccess = (id, time, amount) => {
+  return `Transaction ${id} processed in ${time}ms. ${amount}$ deal`;
+};
+
+const logError = id => {
+  console.warn(`Error processing transaction ${id}. Please try again later.`);
+};
+
+const randomIntegerFromInterval = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
+const makeTransaction = transaction => {
+  let delay = randomIntegerFromInterval(1000, 3000);
+  let canProcess = Math.random() > 0.3;
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      if (canProcess) {
+        transaction.ms = delay;
+        res(logSuccess(transaction.id, transaction.ms, transaction.amount));
+      } else {
+        rej(transaction.id);
+      }
+    }, delay);
+  });
+};
+
+// makeTransaction({ id: 70, amount: 150 }).then(console.log).catch(logError);
+// makeTransaction({ id: 71, amount: 250 }).then(console.log).catch(logError);
+// makeTransaction({ id: 72, amount: 100 }).then(console.log).catch(logError);
+// makeTransaction({ id: 5, amount: 360 }).then(console.log).catch(logError);
+// makeTransaction({ id: 1, amount: 270 }).then(console.log).catch(logError);
+
+const students = [
+  {
+    name: 'user1',
+    student: true,
+    age: 22,
+  },
+  {
+    name: 'user2',
+    student: false,
+    age: 23,
+  },
+  {
+    name: 'user3',
+    student: true,
+    age: 24,
+  },
+  {
+    name: 'user4',
+    student: true,
+    age: 21,
+  },
+  {
+    name: 'user5',
+    student: true,
+    age: 50,
+  },
+  {
+    name: 'user6',
+    student: true,
+    age: 20,
+  },
+  {
+    name: 'user7',
+    student: true,
+    age: 27,
+  },
+  {
+    name: 'user8',
+    student: true,
+    age: 26,
+  },
+  {
+    name: 'user9',
+    student: true,
+    age: 23,
+  },
+];
+
+const toSearchForStudent = (arr, min, max) => {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      res(arr.filter(student => student.age >= min && student.age <= max));
+    }, 0);
+
+    // rej(rejectOperation);
+  });
+};
+
+const toShowStudents = students => {
+  return console.table(students);
+};
+
+toSearchForStudent(students, 20, 26).then(toShowStudents);

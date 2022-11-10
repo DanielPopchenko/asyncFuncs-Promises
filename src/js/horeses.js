@@ -24,7 +24,6 @@ const run = horse => {
 console.log('%c Заезд начался!', 'color:yellow; font-size:20px');
 
 const promises = horses.map(run);
-// console.log(promises);
 
 /**
  * - Promise.race - ждет пока самый быстрый добегает
